@@ -8,10 +8,10 @@
       "DOM.Iterable"
     ],
     "ignoreDeprecations": "6.0",
-    "module": "node16",
+    "module": "es2015",
     "skipLibCheck": true,
     /* Bundler mode */
-    "moduleResolution": "node16",
+    "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -30,6 +30,24 @@
       "@/components/*": [
         "src/components/*"
       ],
+      "@/core/*": [
+        "src/core/*"
+      ],
+      "@/hooks/*": [
+        "src/hooks/*"
+      ],
+      "@/pages/*": [
+        "src/pages/*"
+      ],
+      "@/infra/*": [
+        "src/infra/*"
+      ],
+      "@/assets/*": [
+        "src/assets/*"
+      ],
+      "@/styles/*": [
+        "src/styles/*"
+      ]
     },
   },
   "include": [

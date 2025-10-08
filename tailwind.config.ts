@@ -1,8 +1,11 @@
 import type { Config } from 'tailwindcss';
+import tailwindcssAnimate from 'tailwindcss-animate';
+import tailwindcssAspectRatio from '@tailwindcss/aspect-ratio';
 
 export default {
   darkMode: 'class',
   content: [
+    './index.html',
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
@@ -27,7 +30,6 @@ export default {
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
-          hover: 'hsl(var(--primary-hover))',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
@@ -64,17 +66,6 @@ export default {
           ring: 'hsl(var(--sidebar-ring))',
         },
       },
-      backgroundImage: {
-        'gradient-primary': 'var(--gradient-primary)',
-        'gradient-secondary': 'var(--gradient-secondary)',
-      },
-      boxShadow: {
-        elegant: 'var(--shadow-elegant)',
-        card: 'var(--shadow-card)',
-      },
-      transitionProperty: {
-        smooth: 'var(--transition-smooth)',
-      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
@@ -104,5 +95,5 @@ export default {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [tailwindcssAnimate, tailwindcssAspectRatio],
 } satisfies Config;
