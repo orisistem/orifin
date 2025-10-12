@@ -16,6 +16,8 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<RegisterExpense />} />
+            <Route path='/despesas/adicionar' element={<RegisterExpense />} />
+            <Route path='/despesas/lista' element={<RegisterExpense />} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>
