@@ -24,30 +24,9 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "./",
     "paths": {
-      "@/src/*": [
+      "@/*": [
         "src/*"
       ],
-      "@/components/*": [
-        "src/components/*"
-      ],
-      "@/core/*": [
-        "src/core/*"
-      ],
-      "@/hooks/*": [
-        "src/hooks/*"
-      ],
-      "@/pages/*": [
-        "src/pages/*"
-      ],
-      "@/infra/*": [
-        "src/infra/*"
-      ],
-      "@/assets/*": [
-        "src/assets/*"
-      ],
-      "@/styles/*": [
-        "src/styles/*"
-      ]
     },
   },
   "include": [

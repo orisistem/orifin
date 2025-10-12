@@ -4,6 +4,7 @@ import {
   BanknoteX,
   BanknoteArrowDown,
   HandCoins,
+  Diff,
 } from 'lucide-react';
 
 export interface NavigationChild {
@@ -23,18 +24,18 @@ export interface NavigationItem {
 export const navigation: NavigationItem[] = [
   { name: 'Dashboard', href: '/', icon: Home },
   {
-    name: 'Despesas',
+    name: 'Transações',
     icon: BanknoteX,
     isGroup: true,
     children: [
       {
-        name: 'Adicionar Despesa',
-        href: '/despesas/adicionar',
-        icon: BanknoteArrowDown,
+        name: 'Adicionar',
+        href: '/transactions/adicionar',
+        icon: Diff,
       },
       {
-        name: 'Lista de Despesas',
-        href: '/despesas/lista',
+        name: 'Lista',
+        href: '/transactions/lista',
         icon: HandCoins,
       },
     ],
