@@ -2,8 +2,8 @@ import {
   Money,
   TransactionType,
   TransactionStatus,
-} from '@/domain/value-objects';
-import { ValidationError } from '@/domain/errors';
+} from '../../domain/value-objects';
+import { ValidationError } from '../../domain/errors';
 
 export class Transaction {
   constructor(

@@ -1,6 +1,6 @@
-import { TransactionDTO } from '@/application/dto';
-import { Transaction } from '@/domain/entities';
-import { TransactionType } from '@/domain/value-objects';
+import { TransactionDTO } from '../../application/dto';
+import { Transaction } from '../../domain/entities';
+import { Money, TransactionType } from '../../domain/value-objects';
 
 export class TransactionMapper {
   public static toDTO(transaction: Transaction): TransactionDTO {
@@ -16,5 +16,16 @@ export class TransactionMapper {
     };
   }
 
-  // Aqui você também poderia ter um método fromDTO para o caminho inverso
+  public static fromDTO(dto: TransactionDTO): Transaction {
+    return new Transaction(
+      dto.id,
+      dto.accountId,
+      dto.categoryId,
+      new Money(dto.amount),
+      dto.type as TransactionType, // Assegura que o tipo é do enum correto
+      dto.description,
+      dto.date,
+      dto.status
+    );
+  }
 }

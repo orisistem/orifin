@@ -1,9 +1,11 @@
 import { useState, ReactNode } from 'react';
 import { invoke } from '@tauri-apps/api/core';
+import { Toaster } from 'react-hot-toast';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { RegisterExpense } from './pages';
+import { TransactionsPage } from './presentation/pages';
 
 import './styles/index.css';
 import { TooltipProvider } from './components/';
@@ -13,14 +15,15 @@ function App() {
   return (
     <SidebarProvider>
       <TooltipProvider>
+        <Toaster position='top-right' reverseOrder={false} />
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<RegisterExpense />} />
             <Route
               path='/transactions/adicionar'
-              element={<RegisterExpense />}
+              element={<TransactionsPage />}
             />
-            <Route path='/transactions/lista' element={<RegisterExpense />} />
+            {/* <Route path='/' element={<TransactionsPage />} /> */}
           </Routes>
         </BrowserRouter>
       </TooltipProvider>

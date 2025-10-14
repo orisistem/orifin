@@ -1,5 +1,5 @@
-import { Money } from '@/domain/value-objects';
-import { ValidationError } from '@/domain/errors';
+import { Money } from '../value-objects';
+import { ValidationError } from '../errors';
 
 export enum AccountType {
   CHECKING = 'checking',

@@ -1,4 +1,4 @@
-import { BusinessRuleError, ValidationError } from '@/domain/errors';
+import { BusinessRuleError, ValidationError } from '../../domain/errors';
 
 export class Money {
   constructor(

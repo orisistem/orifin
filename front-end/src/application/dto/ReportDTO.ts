@@ -1,4 +1,4 @@
-import { Money } from '@/domain/value-objects';
+import { Money } from '../../domain/value-objects';
 import { TransactionDTO } from './TransactionDTO';
 
 export interface CashFlowFilters {

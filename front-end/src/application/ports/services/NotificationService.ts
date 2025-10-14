@@ -1,4 +1,4 @@
-import { INotificationService } from '@/application/ports/services/INotificationService';
+import { INotificationService } from '../../../application/ports/services/INotificationService';
 
 /**
  * Implementação básica do serviço de notificação.

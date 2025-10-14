@@ -1,4 +1,4 @@
-import { Account } from '@/domain/entities';
+import { Account } from '../../../domain/entities';
 
 export interface IAccountRepository {
   save(account: Account): Promise<Account>;

@@ -1,11 +1,11 @@
-import { ITransactionRepository } from '@/application/ports/repositories';
-import { INotificationService } from '@/application/ports/services';
-import { Transaction } from '@/domain/entities';
+import { ITransactionRepository } from '../../ports/repositories';
+import { INotificationService } from '../../ports/services';
+import { Transaction } from '../../../domain/entities';
 import {
   Money,
   TransactionStatus,
   TransactionType,
-} from '@/domain/value-objects';
+} from '../../../domain/value-objects';
 
 export interface CreateTransactionDTO {
   accountId: string;

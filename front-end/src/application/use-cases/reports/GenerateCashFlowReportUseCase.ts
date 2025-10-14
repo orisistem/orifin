@@ -1,12 +1,13 @@
-import { Money } from '@/domain/value-objects';
-import { Transaction, Account } from '@/domain/entities';
+import { Money } from '../../../domain/value-objects';
+import { Transaction, Account } from '../../../domain/entities';
 
 import {
   ITransactionRepository,
   IAccountRepository,
-} from '@/application/ports/repositories';
-import { CashFlowFilters, CashFlowReport } from '@/application/dto/ReportDTO';
-import { TransactionMapper } from '@/application/mappers';
+  CashFlowFilters,
+  CashFlowReport,
+  TransactionMapper,
+} from '../../../application';
 
 export class GenerateCashFlowReportUseCase {
   constructor(
@@ -17,8 +18,8 @@ export class GenerateCashFlowReportUseCase {
   async execute(filters: CashFlowFilters): Promise<CashFlowReport> {
     const [transactions, accounts] = await Promise.all([
       this.transactionRepository.findAll({
-        dateStart: filters.startDate,
-        dateEnd: filters.endDate,
+        startDate: filters.startDate.toISOString(),
+        endDate: filters.endDate.toISOString(),
       }),
       this.accountRepository.findAll(),
     ]);
