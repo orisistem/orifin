@@ -14,6 +14,10 @@ export interface CreateTransactionDTO {
   type: 'income' | 'expense';
   description: string;
   date: Date;
+  cardId?: string;
+  dueDate?: Date;
+  installments?: 'À Vista' | 'Parcelado';
+  numberInstallments: number;
 }
 
 export class CreateTransactionUseCase {
