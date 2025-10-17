@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Tooltip, TooltipTrigger, TooltipContent, Button } from './ui';
-import { useSidebar } from '../contexts';
+import { Tooltip, TooltipTrigger, TooltipContent, Button } from '../ui';
+import { useSidebar } from '../../../contexts';
 import {
   ChevronDown,
   ChevronUp,
@@ -9,9 +9,9 @@ import {
   ChevronLeft,
   DollarSign,
 } from 'lucide-react';
-import { cn } from '../lib';
+import { cn } from '../../../lib';
 
-import { NavigationChild, NavigationItem, navigation } from './constants';
+import { NavigationChild, NavigationItem, navigation } from '../constants';
 
 export const Sidebar = () => {
   const location = useLocation();

@@ -2,7 +2,7 @@ import {
   LucideIcon,
   Home,
   BanknoteX,
-  BanknoteArrowDown,
+  BanknoteArrowUp,
   HandCoins,
   Diff,
 } from 'lucide-react';
@@ -25,19 +25,7 @@ export const navigation: NavigationItem[] = [
   { name: 'Dashboard', href: '/', icon: Home },
   {
     name: 'Transações',
-    icon: BanknoteX,
-    isGroup: true,
-    children: [
-      {
-        name: 'Adicionar',
-        href: '/transactions/adicionar',
-        icon: Diff,
-      },
-      {
-        name: 'Lista',
-        href: '/transactions/lista',
-        icon: HandCoins,
-      },
-    ],
+    icon: BanknoteArrowUp,
+    href: '/transactions',
   },
 ];

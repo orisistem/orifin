@@ -4,11 +4,10 @@ import { Toaster } from 'react-hot-toast';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import { RegisterExpense } from './pages';
-import { TransactionsPage } from './presentation/pages';
+import { TransactionsPage, DashboardPage } from './presentation/pages';
 
 import './styles/index.css';
-import { TooltipProvider } from './components/';
+import { TooltipProvider } from './presentation/components';
 import { SidebarProvider } from './contexts';
 
 function App() {
@@ -18,12 +17,8 @@ function App() {
         <Toaster position='top-right' reverseOrder={false} />
         <BrowserRouter>
           <Routes>
-            <Route path='/' element={<RegisterExpense />} />
-            <Route
-              path='/transactions/adicionar'
-              element={<TransactionsPage />}
-            />
-            {/* <Route path='/' element={<TransactionsPage />} /> */}
+            <Route path='/' element={<DashboardPage />} />
+            <Route path='/transactions' element={<TransactionsPage />} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>

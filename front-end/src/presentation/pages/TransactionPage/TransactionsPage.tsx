@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTransactions, useCreateTransaction } from '../../hooks';
-import { Container, Loading, ErrorMessage } from '../../components';
+import { Container, Loading, ErrorMessage, Layout } from '../../components';
 import { FilterBar } from './FilterBar';
 import { TransactionForm } from './TransactionForm';
 import { TransactionList } from './TransactionList';
@@ -25,7 +25,7 @@ export const TransactionsPage: React.FC = () => {
   if (error) return <ErrorMessage error={error} />;
 
   return (
-    <Container>
+    <Layout>
       <Header title='Transações' />
 
       <FilterBar onClick={toggleVisibility} onFilter={setFilters} />
@@ -41,6 +41,6 @@ export const TransactionsPage: React.FC = () => {
         onEdit={(t) => console.log('Edit', t)}
         onDelete={(t) => console.log('Delete', t)}
       />
-    </Container>
+    </Layout>
   );
 };

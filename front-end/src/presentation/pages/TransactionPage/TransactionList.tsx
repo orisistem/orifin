@@ -1,5 +1,5 @@
 import React from 'react';
-import { Transaction } from '../../domain/entities';
+import { Transaction } from '../../../domain/entities';
 
 interface TransactionListProps {
   transactions: Transaction[];
@@ -30,9 +30,9 @@ export const TransactionList: React.FC<TransactionListProps> = ({
   }
 
   return (
-    <div className='overflow-x-auto rounded-lg bg-white shadow'>
-      <table className='min-w-full divide-y divide-gray-200'>
-        <thead className='bg-gray-50'>
+    <div className='overflow-x-auto rounded-lg shadow'>
+      <table className='min-w-full divide-y divide-gray-200 bg-gray-100'>
+        <thead>
           <tr>
             <th
               scope='col'
@@ -57,7 +57,8 @@ export const TransactionList: React.FC<TransactionListProps> = ({
             </th>
           </tr>
         </thead>
-        <tbody className='divide-y divide-gray-200 bg-white'>
+        {/* TODO - Structure DB - Transactions, Accounts and Categories */}
+        <tbody className='divide-y divide-gray-200 bg-gray-100'>
           {transactions.map((transaction) => (
             <tr key={transaction.id}>
               <td className='whitespace-nowrap px-6 py-4'>
