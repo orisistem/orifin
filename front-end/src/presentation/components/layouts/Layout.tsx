@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { Sidebar } from './Sidebar';
+import { MainHeader } from './MainHeader';
 import { cn } from '../../../lib';
 
 import { useSidebar } from '../../../contexts';
@@ -19,6 +20,7 @@ export const Layout = ({ children }: LayoutProps): React.ReactElement => {
           isCollapsed ? 'ml-16' : 'ml-64'
         )}
       >
+        <MainHeader />
         {children}
       </main>
     </div>

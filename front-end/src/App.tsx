@@ -4,7 +4,11 @@ import { Toaster } from 'react-hot-toast';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import { TransactionsPage, DashboardPage } from './presentation/pages';
+import {
+  TransactionsPage,
+  DashboardPage,
+  AccountsPage,
+} from './presentation/pages';
 
 import './styles/index.css';
 import { TooltipProvider } from './presentation/components';
@@ -19,6 +23,7 @@ function App() {
           <Routes>
             <Route path='/' element={<DashboardPage />} />
             <Route path='/transactions' element={<TransactionsPage />} />
+            <Route path='/accounts' element={<AccountsPage />} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>

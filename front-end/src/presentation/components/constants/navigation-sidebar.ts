@@ -3,7 +3,7 @@ import {
   Home,
   BanknoteX,
   BanknoteArrowUp,
-  HandCoins,
+  PiggyBank,
   Diff,
 } from 'lucide-react';
 
@@ -27,5 +27,10 @@ export const navigation: NavigationItem[] = [
     name: 'Transações',
     icon: BanknoteArrowUp,
     href: '/transactions',
+  },
+  {
+    name: 'Contas',
+    icon: PiggyBank,
+    href: '/accounts',
   },
 ];
