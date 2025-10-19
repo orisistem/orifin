@@ -4,14 +4,9 @@ import tailwindcssAspectRatio from '@tailwindcss/aspect-ratio';
 
 export default {
   darkMode: 'class',
-  content: [
-    './index.html',
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-  ],
+  content: ['./src/**/*.{js,jsx,ts,tsx}'],
   prefix: '',
+  important: true,
   theme: {
     container: {
       center: true,
@@ -28,8 +23,8 @@ export default {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))',
+          DEFAULT: 'var(--primary)',
+          foreground: 'var(--primary-foreground)',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',

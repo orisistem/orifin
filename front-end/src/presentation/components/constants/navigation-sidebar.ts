@@ -22,7 +22,7 @@ export interface NavigationItem {
 }
 
 export const navigation: NavigationItem[] = [
-  { name: 'Dashboard', href: '/', icon: Home },
+  { name: 'Dashboard', href: '/dashboard', icon: Home },
   {
     name: 'Transações',
     icon: BanknoteArrowUp,

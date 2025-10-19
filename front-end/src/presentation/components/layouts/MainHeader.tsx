@@ -2,10 +2,18 @@ import { useState, useRef, useEffect } from 'react';
 import { Bell, User, Settings, LogOut, ChevronDown } from 'lucide-react';
 import { Button } from '../ui/button';
 
+import { useAuth } from '../../../contexts';
 // Componente do Menu do Usuário (interno por enquanto)
 const UserMenu = () => {
+  const { logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    // Aqui você pode adicionar lógica de validação de formulário se necessário
+    logout();
+  };
 
   // Em uma aplicação real, estes dados viriam de um contexto de autenticação
   const user = {
@@ -72,13 +80,13 @@ const UserMenu = () => {
               <Settings className='mr-3 h-4 w-4' />
               Configurações
             </a>
-            <a
-              href='#'
+            <Button
+              onClick={handleSubmit}
               className='text-red-600 flex items-center px-4 py-2 text-sm hover:bg-gray-100'
             >
               <LogOut className='mr-3 h-4 w-4' />
               Sair
-            </a>
+            </Button>
           </div>
         </div>
       )}
