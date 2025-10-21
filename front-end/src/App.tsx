@@ -9,6 +9,10 @@ import {
   DashboardPage,
   AccountsPage,
   LoginPage,
+  ForgottenPasswordPage,
+  SettingsPage,
+  RegisterUserPage,
+  BudgetPage,
 } from './presentation/pages';
 
 import './styles/index.css';
@@ -29,12 +33,16 @@ const AppRoutes = () => {
             isAuthenticated ? <Navigate to='/dashboard' /> : <LoginPage />
           }
         />
+        <Route path='/forgotten-password' element={<ForgottenPasswordPage />} />
+        <Route path='/register' element={<RegisterUserPage />} />
 
         {/* Rotas Privadas */}
         <Route element={<PrivateRoute />}>
           <Route path='/dashboard' element={<DashboardPage />} />
           <Route path='/transactions' element={<TransactionsPage />} />
           <Route path='/accounts' element={<AccountsPage />} />
+          <Route path='/settings' element={<SettingsPage />} />
+          <Route path='/budgets' element={<BudgetPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

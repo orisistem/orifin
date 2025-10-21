@@ -4,7 +4,7 @@ import {
   BanknoteX,
   BanknoteArrowUp,
   PiggyBank,
-  Diff,
+  BadgeDollarSign,
 } from 'lucide-react';
 
 export interface NavigationChild {
@@ -32,5 +32,10 @@ export const navigation: NavigationItem[] = [
     name: 'Contas',
     icon: PiggyBank,
     href: '/accounts',
+  },
+  {
+    name: 'Orçamentos',
+    icon: BadgeDollarSign,
+    href: '/budgets',
   },
 ];

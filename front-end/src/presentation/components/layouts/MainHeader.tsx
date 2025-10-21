@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Bell, User, Settings, LogOut, ChevronDown } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from '../ui/button';
 
 import { useAuth } from '../../../contexts';
@@ -73,13 +74,13 @@ const UserMenu = () => {
               <p className='text-sm font-semibold text-gray-800'>{user.name}</p>
               <p className='text-xs text-gray-500 truncate'>{user.email}</p>
             </div>
-            <a
-              href='#'
+            <Link
+              to='/settings'
               className='text-gray-700 flex items-center px-4 py-2 text-sm hover:bg-gray-100'
             >
               <Settings className='mr-3 h-4 w-4' />
               Configurações
-            </a>
+            </Link>
             <Button
               onClick={handleSubmit}
               className='text-red-600 flex items-center px-4 py-2 text-sm hover:bg-gray-100'

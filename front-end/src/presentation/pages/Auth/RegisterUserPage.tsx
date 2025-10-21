@@ -1,28 +1,37 @@
 import { Link } from 'react-router-dom';
 import { Button } from '../../components';
 
-import { useAuth } from '../../../contexts/AuthContext';
-
-export const LoginPage = () => {
-  const { login } = useAuth();
-
+export const RegisterUserPage = () => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    // Aqui você pode adicionar lógica de validação de formulário se necessário
-    login();
+    // TODO: Adicionar lógica para registrar o usuário
+    console.log('Tentativa de registro de usuário.');
   };
 
   return (
     <div className='flex min-h-screen items-center justify-center bg-background p-4'>
       <div className='w-full max-w-md space-y-6 rounded-lg border bg-card p-8 shadow-sm'>
         <div className='space-y-2 text-center'>
-          <h1 className='text-2xl font-bold'>Acesse sua conta</h1>
+          <h1 className='text-2xl font-bold'>Crie sua conta</h1>
           <p className='text-muted-foreground'>
-            Insira suas credenciais abaixo para entrar
+            Preencha os campos abaixo para se registrar
           </p>
         </div>
 
-        <form className='space-y-4'>
+        <form onSubmit={handleSubmit} className='space-y-4'>
+          <div className='space-y-2'>
+            <label className='text-sm font-medium leading-none' htmlFor='name'>
+              Nome
+            </label>
+            <input
+              id='name'
+              type='text'
+              className='flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50'
+              placeholder='Seu nome completo'
+              required
+            />
+          </div>
+
           <div className='space-y-2'>
             <label className='text-sm font-medium leading-none' htmlFor='email'>
               Email
@@ -36,15 +45,13 @@ export const LoginPage = () => {
             />
           </div>
 
-          <div className='felx space-y-2'>
-            <div className='flex items-center justify-between'>
-              <label
-                className='text-sm font-medium leading-none'
-                htmlFor='password'
-              >
-                Senha
-              </label>
-            </div>
+          <div className='space-y-2'>
+            <label
+              className='text-sm font-medium leading-none'
+              htmlFor='password'
+            >
+              Senha
+            </label>
             <input
               id='password'
               type='password'
@@ -52,30 +59,20 @@ export const LoginPage = () => {
               placeholder='••••••••'
               required
             />
-            <Link
-              to='/forgotten-password'
-              className='text-sm text-end text-[var(--primary)] hover:underline auto-justify-end'
-            >
-              Esqueceu sua senha?
-            </Link>
           </div>
 
           <Button
-            onClick={handleSubmit}
             type='submit'
             className='bg-[var(--primary)] text-[var(--primary-foreground)] hover:bg-primary/90 w-full'
           >
-            Entrar
+            Registrar
           </Button>
         </form>
 
         <div className='mt-4 text-center text-sm'>
-          Não tem uma conta?{' '}
-          <Link
-            to='/register'
-            className='text-[var(--primary)] hover:underline'
-          >
-            Registre-se
+          Já tem uma conta?{' '}
+          <Link to='/' className='text-[var(--primary)] hover:underline'>
+            Faça login
           </Link>
         </div>
       </div>
