@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { Button } from '../../components';
+import { Button, AuthLayout, Input, LinkComponent } from '../../components';
+import { AuthCard } from './AuthCard';
 
 import { useAuth } from '../../../contexts/AuthContext';
 
@@ -13,8 +13,8 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className='flex min-h-screen items-center justify-center bg-background p-4'>
-      <div className='w-full max-w-md space-y-6 rounded-lg border bg-card p-8 shadow-sm'>
+    <AuthLayout>
+      <AuthCard>
         <div className='space-y-2 text-center'>
           <h1 className='text-2xl font-bold'>Acesse sua conta</h1>
           <p className='text-muted-foreground'>
@@ -22,46 +22,14 @@ export const LoginPage = () => {
           </p>
         </div>
 
-        <form className='space-y-4'>
-          <div className='space-y-2'>
-            <label className='text-sm font-medium leading-none' htmlFor='email'>
-              Email
-            </label>
-            <input
-              id='email'
-              type='email'
-              className='flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50'
-              placeholder='seu@email.com'
-              required
-            />
-          </div>
-
-          <div className='felx space-y-2'>
-            <div className='flex items-center justify-between'>
-              <label
-                className='text-sm font-medium leading-none'
-                htmlFor='password'
-              >
-                Senha
-              </label>
-            </div>
-            <input
-              id='password'
-              type='password'
-              className='flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50'
-              placeholder='••••••••'
-              required
-            />
-            <Link
-              to='/forgotten-password'
-              className='text-sm text-end text-[var(--primary)] hover:underline auto-justify-end'
-            >
-              Esqueceu sua senha?
-            </Link>
-          </div>
-
+        <form onSubmit={handleSubmit} className='space-y-4'>
+          <Input label='Email' placeholder='seu@email.com' type='email' />
+          <Input label='Senha' placeholder='******' type='password' />
+          <LinkComponent
+            to={'/forgotten-password'}
+            text='Esqueceu sua senha?'
+          />
           <Button
-            onClick={handleSubmit}
             type='submit'
             className='bg-[var(--primary)] text-[var(--primary-foreground)] hover:bg-primary/90 w-full'
           >
@@ -69,16 +37,11 @@ export const LoginPage = () => {
           </Button>
         </form>
 
-        <div className='mt-4 text-center text-sm'>
+        <div className='flex justify-center items-center mt-4 text-sm'>
           Não tem uma conta?{' '}
-          <Link
-            to='/register'
-            className='text-[var(--primary)] hover:underline'
-          >
-            Registre-se
-          </Link>
+          <LinkComponent to={'/register'} text='Registre-se' className='px-2' />
         </div>
-      </div>
-    </div>
+      </AuthCard>
+    </AuthLayout>
   );
 };

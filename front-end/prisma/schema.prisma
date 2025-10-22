@@ -1,0 +1,213 @@
+// Prisma schema implementing the finance domain for SQLite
+// Generated to match the ER model proposed for the project.
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlite"
+    url      = env("DATABASE_URL") // e.g. file:./dev.db
+}
+
+// Enums
+enum TransactionType {
+    INCOME
+    EXPENSE
+    TRANSFER
+}
+
+enum TransactionStatus {
+    PENDING
+    CLEARED
+    RECONCILED
+    CANCELLED
+}
+
+enum AccountType {
+    CHECKING
+    SAVINGS
+    CREDIT_CARD
+    CASH
+    INVESTMENT
+}
+
+enum CategoryType {
+    EXPENSE
+    INCOME
+}
+
+// Models
+model User {
+    id        String    @id @default(uuid())
+    email     String    @unique
+    fullName  String?   @map("full_name")
+    cpf       String?   @unique
+    avatarUrl String?   @map("avatar_url")
+    locale    String?
+    timeZone  String?   @map("time_zone")
+    isActive  Boolean   @default(true) @map("is_active")
+    metadata  Json?
+    createdAt DateTime  @default(now()) @map("created_at")
+    updatedAt DateTime  @default(now()) @map("updated_at")
+    deletedAt DateTime? @map("deleted_at")
+
+    accounts      Account[]
+    categories    Category[]
+    transactions  Transaction[]
+    budgets       Budget[]
+    goals         Goal[]
+    notifications Notification[]
+    attachments   Attachment[]
+}
+
+model Account {
+    id           String      @id @default(uuid())
+    userId       String      @map("user_id")
+    user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+    name         String
+    type         AccountType
+    currency     String      @default("BRL")
+    balanceCents BigInt      @default(0) @map("balance_cents")
+    institution  String?
+    lastSyncedAt DateTime?   @map("last_synced_at")
+    isActive     Boolean     @default(true) @map("is_active")
+    createdAt    DateTime    @default(now()) @map("created_at")
+    updatedAt    DateTime    @default(now()) @map("updated_at")
+    deletedAt    DateTime?   @map("deleted_at")
+
+    transactions         Transaction[] @relation("account_transactions")
+    budgets              Budget[]
+    attachments          Attachment[]
+    transferTransactions Transaction[] @relation("transfer_account_rel")
+    goals                Goal[]
+
+    @@unique([userId, name])
+    @@index([userId], map: "idx_accounts_user_id")
+}
+
+model Category {
+    id        String       @id @default(uuid())
+    userId    String?      @map("user_id")
+    user      User?        @relation(fields: [userId], references: [id], onDelete: Cascade)
+    name      String
+    type      CategoryType
+    parentId  String?      @map("parent_id")
+    parent    Category?    @relation("CategoryToParent", fields: [parentId], references: [id])
+    children  Category[]   @relation("CategoryToParent")
+    color     String?
+    createdAt DateTime     @default(now()) @map("created_at")
+    updatedAt DateTime     @default(now()) @map("updated_at")
+    deletedAt DateTime?    @map("deleted_at")
+
+    transactions Transaction[]
+    budgets      Budget[]
+    splits       TransactionSplit[]
+}
+
+model Transaction {
+    id                String            @id @default(uuid())
+    userId            String            @map("user_id")
+    user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+    accountId         String            @map("account_id")
+    account           Account           @relation("account_transactions", fields: [accountId], references: [id])
+    transferAccountId String?           @map("transfer_account_id")
+    transferAccount   Account?          @relation("transfer_account_rel", fields: [transferAccountId], references: [id])
+    categoryId        String?           @map("category_id")
+    category          Category?         @relation(fields: [categoryId], references: [id])
+    description       String?
+    amountCents       BigInt            @map("amount_cents")
+    currency          String            @default("BRL")
+    type              TransactionType
+    status            TransactionStatus @default(PENDING)
+    occurredAt        DateTime          @map("occurred_at")
+    postedAt          DateTime?         @map("posted_at")
+    isRecurring       Boolean           @default(false) @map("is_recurring")
+    recurrenceRule    String?           @map("recurrence_rule")
+    externalId        String?           @map("external_id")
+    notes             String?
+    metadata          Json?
+    createdAt         DateTime          @default(now()) @map("created_at")
+    updatedAt         DateTime          @default(now()) @map("updated_at")
+    deletedAt         DateTime?         @map("deleted_at")
+
+    splits      TransactionSplit[]
+    attachments Attachment[]
+
+    @@index([userId, occurredAt], map: "idx_transactions_user_id_occurred_at")
+    @@index([accountId], map: "idx_transactions_account_id")
+    @@index([externalId], map: "idx_transactions_external_id")
+}
+
+model TransactionSplit {
+    id            String      @id @default(uuid())
+    transactionId String      @map("transaction_id")
+    transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+    categoryId    String?     @map("category_id")
+    category      Category?   @relation(fields: [categoryId], references: [id])
+    amountCents   BigInt      @map("amount_cents")
+    description   String?
+    createdAt     DateTime    @default(now()) @map("created_at")
+    updatedAt     DateTime    @default(now()) @map("updated_at")
+}
+
+model Budget {
+    id          String    @id @default(uuid())
+    userId      String    @map("user_id")
+    user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    accountId   String?   @map("account_id")
+    account     Account?  @relation(fields: [accountId], references: [id])
+    categoryId  String    @map("category_id")
+    category    Category  @relation(fields: [categoryId], references: [id])
+    periodStart DateTime  @map("period_start")
+    periodEnd   DateTime  @map("period_end")
+    limitCents  BigInt    @map("limit_cents")
+    spentCents  BigInt    @default(0) @map("spent_cents")
+    isActive    Boolean   @default(true) @map("is_active")
+    createdAt   DateTime  @default(now()) @map("created_at")
+    updatedAt   DateTime  @default(now()) @map("updated_at")
+    deletedAt   DateTime? @map("deleted_at")
+
+    @@unique([userId, categoryId, periodStart], map: "uniq_budget_user_category_period")
+}
+
+model Goal {
+    id                 String    @id @default(uuid())
+    userId             String    @map("user_id")
+    user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    accountId          String?   @map("account_id")
+    account            Account?  @relation(fields: [accountId], references: [id])
+    name               String
+    targetAmountCents  BigInt    @map("target_amount_cents")
+    currentAmountCents BigInt    @default(0) @map("current_amount_cents")
+    targetDate         DateTime? @map("target_date")
+    startedAt          DateTime  @default(now()) @map("started_at")
+    status             String    @default("active")
+    metadata           Json?
+    createdAt          DateTime  @default(now()) @map("created_at")
+    updatedAt          DateTime  @default(now()) @map("updated_at")
+}
+
+model Notification {
+    id          String    @id @default(uuid())
+    userId      String    @map("user_id")
+    user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    type        String
+    payload     Json?
+    isRead      Boolean   @default(false) @map("is_read")
+    deliveredAt DateTime? @map("delivered_at")
+    createdAt   DateTime  @default(now()) @map("created_at")
+}
+
+model Attachment {
+    id            String       @id @default(uuid())
+    userId        String       @map("user_id")
+    user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+    transactionId String?      @map("transaction_id")
+    transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+    accountId     String?      @map("account_id")
+    account       Account?     @relation(fields: [accountId], references: [id])
+    fileUrl       String       @map("file_url")
+    mime          String?
+    createdAt     DateTime     @default(now()) @map("created_at")
+}
